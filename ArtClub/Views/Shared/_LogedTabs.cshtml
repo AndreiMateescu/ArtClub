@@ -1,0 +1,24 @@
+﻿@using Microsoft.AspNet.Identity
+
+@if (Request.IsAuthenticated)
+{
+    <li>@Html.ActionLink("Events", "Index", "Events")</li>
+
+    if (Context.User.IsInRole("Admin"))
+    {
+        <li>@Html.ActionLink("Reservations", "Index", "Reservations")</li>
+        <li>@Html.ActionLink("Payments", "Index", "Payments")</li>
+        <li>@Html.ActionLink("Locations", "Index", "Locations")</li>
+        <li>@Html.ActionLink("Add Member", "Index", "AddMembers")</li>
+        <li>@Html.ActionLink("Reports", "Index", "Reports")</li>
+    }
+    else
+    {
+        <li>@Html.ActionLink("Locations", "Index", "LocationsPreview")</li>
+        <li>@Html.ActionLink("My Initations", "Index", "EventGuests")</li>
+    }
+}
+else
+{
+    <li>@Html.ActionLink("Book Location", "BookLocation", "Home")</li>
+}

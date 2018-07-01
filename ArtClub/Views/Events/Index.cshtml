@@ -1,0 +1,59 @@
+﻿@model IEnumerable<ArtClub.Models.EventsModels>
+@using Microsoft.AspNet.Identity;
+
+    <h2>Events</h2>
+
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table table-striped table-bordered">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EventDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LocationName)
+            </th>
+            <th>
+                Actions
+            </th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EventDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LocationName)
+            </td>
+            <td>
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) 
+
+                @if ((User.Identity.GetUserName() == item.CreationUser) | (Context.User.IsInRole("Admin")))
+                {
+                    @Html.ActionLink("Invite Members", "Invite", new { id = item.Id })
+                }
+  
+                @if ((User.Identity.GetUserName() == item.CreationUser) | (Context.User.IsInRole("Admin")))
+                {
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                }
+            </td>
+        </tr>
+    }
+    
+    </table>
+
